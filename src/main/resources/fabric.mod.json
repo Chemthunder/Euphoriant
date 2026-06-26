@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "euphoriant",
+	"version": "${version}",
+	"name": "Euphoriant",
+	"description": "breaking bad in minecraft",
+	"authors": [
+		"Chemthunder"
+	],
+	"license": "ARR",
+	"icon": "assets/euphoriant/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+          "org.autumn.euphoriant.core.Euphoriant"
+		],
+		"fabric-datagen": [
+          "org.autumn.euphoriant.datagen.EuphoriantDataGenerator"
+		]
+	},
+	"mixins": [
+		"euphoriant.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
