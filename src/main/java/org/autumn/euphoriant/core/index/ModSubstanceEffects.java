@@ -19,6 +19,8 @@ public interface ModSubstanceEffects {
 
     /// NEGATIVE
     SubstanceEffect FLIMSY = rant.register("flimsy", EffectCategory.NEGATIVE);
+    SubstanceEffect HIDEOUS = rant.register("hideous", EffectCategory.NEGATIVE);
+    SubstanceEffect SINKING = rant.register("sinking", EffectCategory.NEGATIVE);
 
     static void init() {}
 }
