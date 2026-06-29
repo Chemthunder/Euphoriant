@@ -10,7 +10,6 @@ import net.minecraft.world.entity.player.Player;
 import org.autumn.euphoriant.core.cca.entity.HighComponent;
 
 import static net.minecraft.commands.Commands.literal;
-import static net.minecraft.commands.Commands.argument;
 
 public class ModDebugCommand implements CommandRegistrationCallback {
     public void register(CommandDispatcher<CommandSourceStack> commandDispatcher, CommandBuildContext commandBuildContext, Commands.CommandSelection commandSelection) {

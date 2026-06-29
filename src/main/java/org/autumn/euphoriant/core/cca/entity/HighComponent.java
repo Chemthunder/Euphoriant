@@ -6,7 +6,6 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.autumn.euphoriant.api.Mixture;
 import org.autumn.euphoriant.api.SubstanceEffect;
 import org.autumn.euphoriant.core.Euphoriant;
-import org.autumn.euphoriant.core.item.SubstanceItem;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistry;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
