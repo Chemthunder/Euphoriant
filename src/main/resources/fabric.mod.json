@@ -1,30 +1,52 @@
 {
-	"schemaVersion": 1,
-	"id": "euphoriant",
-	"version": "${version}",
-	"name": "Euphoriant",
-	"description": "breaking bad in minecraft",
-	"authors": [
-		"Chemthunder"
-	],
-	"license": "ARR",
-	"icon": "assets/euphoriant/icon.png",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-          "org.autumn.euphoriant.core.Euphoriant"
-		],
-		"fabric-datagen": [
-          "org.autumn.euphoriant.datagen.EuphoriantDataGenerator"
-		]
-	},
-	"mixins": [
-		"euphoriant.mixins.json"
-	],
-	"depends": {
-		"fabricloader": ">=0.15.11",
-		"minecraft": "~1.21.11",
-		"java": ">=21",
-		"fabric-api": "*"
-	}
+  "schemaVersion": 1,
+
+  "id": "euphoriant",
+  "version": "${version}",
+
+  "name": "Euphoriant",
+  "description": "breaking bad in minecraft",
+  "authors": [
+    "Chemthunder"
+  ],
+
+  "license": "ARR",
+
+  "icon": "assets/euphoriant/icon.png",
+
+  "environment": "*",
+
+  "entrypoints": {
+    "main": [
+      "org.autumn.euphoriant.core.Euphoriant"
+    ],
+    "client": [
+      "org.autumn.euphoriant.core.EuphoriantClient"
+    ],
+
+    "fabric-datagen": [
+      "org.autumn.euphoriant.datagen.EuphoriantDataGenerator"
+    ],
+
+    "cardinal-components": [
+      "org.autumn.euphoriant.core.cca.ModCCA"
+    ]
+  },
+
+  "mixins": [
+    "euphoriant.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.15.11",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+
+  "custom": {
+    "cardinal-components": [
+      "euphoriant:high"
+    ]
+  }
 }

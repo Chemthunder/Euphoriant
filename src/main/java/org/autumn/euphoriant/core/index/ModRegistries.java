@@ -6,7 +6,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import org.autumn.euphoriant.api.SubstanceEffect;
 import org.autumn.euphoriant.core.Euphoriant;
-import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("NullableProblems")
 public interface ModRegistries {
