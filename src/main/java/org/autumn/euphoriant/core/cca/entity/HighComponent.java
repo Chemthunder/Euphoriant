@@ -6,6 +6,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.autumn.euphoriant.api.Mixture;
 import org.autumn.euphoriant.api.SubstanceEffect;
 import org.autumn.euphoriant.core.Euphoriant;
+import org.jetbrains.annotations.Nullable;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistry;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
@@ -23,7 +24,7 @@ public class HighComponent implements AutoSyncedComponent, CommonTickingComponen
     );
     private final Player player;
 
-    private Mixture mixture;
+    private @Nullable Mixture mixture;
 
     private int duration = 0;
 
@@ -34,8 +35,10 @@ public class HighComponent implements AutoSyncedComponent, CommonTickingComponen
     }
 
     public void tick() {
-        for (SubstanceEffect effect : mixture.effects()) {
-            effect.tick(player);
+        if (mixture != null) {
+            for (SubstanceEffect effect : mixture.effects()) {
+                effect.tick(player);
+            }
         }
     }
 

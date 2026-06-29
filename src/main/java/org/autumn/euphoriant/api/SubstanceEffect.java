@@ -58,4 +58,7 @@ public class SubstanceEffect {
 
     public void onHeal(Player player, Level level) {
     }
+
+    public void onDeath(Player player, Level level) {
+    }
 }

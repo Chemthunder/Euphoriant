@@ -3,9 +3,9 @@ package org.autumn.euphoriant.core.index;
 import net.acoyt.acornlib.api.registrants.ItemRegistrant;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.component.Consumable;
 import org.autumn.euphoriant.api.Mixture;
-import org.autumn.euphoriant.core.item.Debugger;
 import org.autumn.euphoriant.core.item.SubstanceItem;
 import org.autumn.euphoriant.core.utilities.SubstanceConsumeEffect;
 
@@ -24,16 +24,11 @@ public interface ModItems {
                             true
                     ),
                     Consumable.builder()
-                            .onConsume(
-                                    new SubstanceConsumeEffect()
-                            )
+                            .animation(ItemUseAnimation.EAT)
+                            .hasConsumeParticles(true)
+                            .onConsume(new SubstanceConsumeEffect())
                             .build()
             )
-    );
-
-    Item DEBUGGER = rant.register("debugger", Debugger::new, new Item.Properties()
-            .stacksTo(1)
-            .component(ModDataComponentTypes.MIXTURE, Mixture.BLANK)
     );
 
     static void init() {}

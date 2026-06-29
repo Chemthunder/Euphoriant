@@ -44,19 +44,6 @@ public class SubstanceItem extends Item {
         return super.use(level, player, interactionHand);
     }
 
-    public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity) {
-        if (livingEntity instanceof Player player) {
-            HighComponent high = new HighComponent(player);
-
-            List<SubstanceEffect> effectsToTransmit = itemStack.get(ModDataComponentTypes.MIXTURE).effects();
-
-            Mixture toDeploy = new Mixture(effectsToTransmit);
-
-            high.setMixture(toDeploy);
-        }
-        return super.finishUsingItem(itemStack, level, livingEntity);
-    }
-
     public static final class Tooltip implements BetterItemTooltipEvent {
         public void getTooltip(ItemStack stack, TooltipContext context, TooltipDisplay component, @Nullable Player player, TooltipFlag type, Consumer<Component> consumer) {
             if (stack.getItem() instanceof SubstanceItem) {
