@@ -2,7 +2,9 @@ package org.autumn.euphoriant.core;
 
 import net.acoyt.acornlib.api.event.BetterItemTooltipEvent;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.resources.Identifier;
+import org.autumn.euphoriant.core.cmnd.ModDebugCommand;
 import org.autumn.euphoriant.core.index.*;
 import org.autumn.euphoriant.core.item.SubstanceItem;
 import org.slf4j.Logger;
@@ -18,6 +20,8 @@ public class Euphoriant implements ModInitializer {
         ModSubstanceEffects.init();
         ModDataComponentTypes.init();
         ModParticleTypes.init();
+
+        CommandRegistrationCallback.EVENT.register(new ModDebugCommand());
 
         this.createTooltips();
 

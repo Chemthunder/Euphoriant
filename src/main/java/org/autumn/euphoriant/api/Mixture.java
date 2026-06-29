@@ -6,6 +6,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,4 +20,12 @@ public record Mixture(List<SubstanceEffect> effects) {
     ).apply(codec, Mixture::new));
 
     public static final StreamCodec<ByteBuf, Mixture> STREAM_CODEC = ByteBufCodecs.fromCodec(CODEC);
+
+    public List<String> join() {
+        List<String> strings = new ArrayList<>();
+        for (SubstanceEffect effect : effects) {
+            strings.add(effect.getDispName());
+        }
+        return strings;
+    }
 }

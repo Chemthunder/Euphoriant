@@ -16,8 +16,8 @@ public class SubstanceEffectRegistrant extends RegistrantBase<SubstanceEffect> {
         super(modId, ModRegistries.SUBSTANCE_EFFECT);
     }
 
-    public SubstanceEffect register(String name, EffectCategory category, int color) {
-        return register(name, new SubstanceEffect(name, category, color));
+    public SubstanceEffect register(String name, EffectCategory category) {
+        return register(name, new SubstanceEffect(name, category));
     }
 
     public void registerLang(HolderLookup.Provider provider, FabricLanguageProvider.TranslationBuilder translationBuilder) {

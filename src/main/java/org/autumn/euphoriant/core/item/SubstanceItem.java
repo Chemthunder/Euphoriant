@@ -1,23 +1,16 @@
 package org.autumn.euphoriant.core.item;
 
-import com.mojang.serialization.MapCodec;
-import io.netty.buffer.ByteBuf;
 import net.acoyt.acornlib.api.event.BetterItemTooltipEvent;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
-import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.level.Level;
 import org.autumn.euphoriant.api.EffectCategory;
 import org.autumn.euphoriant.api.Mixture;
@@ -39,13 +32,29 @@ public class SubstanceItem extends Item {
     public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack stack = player.getItemInHand(interactionHand);
 
-        stack.set(ModDataComponentTypes.MIXTURE, new Mixture(
-                Arrays.asList(
-                        ModSubstanceEffects.SIGHT,
-                        ModSubstanceEffects.FLIMSY
-                )
-        ));
+        if (!player.isCrouching()) {
+            stack.set(ModDataComponentTypes.MIXTURE, new Mixture(
+                    Arrays.asList(
+                            ModSubstanceEffects.SIGHT,
+                            ModSubstanceEffects.FLIMSY,
+                            ModSubstanceEffects.TEST
+                    )
+            ));
+        }
         return super.use(level, player, interactionHand);
+    }
+
+    public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity) {
+        if (livingEntity instanceof Player player) {
+            HighComponent high = new HighComponent(player);
+
+            List<SubstanceEffect> effectsToTransmit = itemStack.get(ModDataComponentTypes.MIXTURE).effects();
+
+            Mixture toDeploy = new Mixture(effectsToTransmit);
+
+            high.setMixture(toDeploy);
+        }
+        return super.finishUsingItem(itemStack, level, livingEntity);
     }
 
     public static final class Tooltip implements BetterItemTooltipEvent {
@@ -68,31 +77,4 @@ public class SubstanceItem extends Item {
         }
     }
 
-    public record ItemConsumeEffect() implements ConsumeEffect {
-        public static final MapCodec<ItemConsumeEffect> MAP_CODEC = MapCodec.unit(ItemConsumeEffect::new);
-        public static final StreamCodec<RegistryFriendlyByteBuf, ItemConsumeEffect> STREAM_CODEC = StreamCodec.unit(new ItemConsumeEffect());
-
-        public static final Type<ItemConsumeEffect> TYPE = new Type<>(
-                MAP_CODEC,
-                STREAM_CODEC
-        );
-
-        public Type<? extends ConsumeEffect> getType() {
-            return TYPE;
-        }
-
-        public boolean apply(Level level, ItemStack itemStack, LivingEntity livingEntity) {
-            if (livingEntity instanceof Player player) {
-                HighComponent high = new HighComponent(player);
-
-                List<SubstanceEffect> effectsToTransmit = itemStack.get(ModDataComponentTypes.MIXTURE).effects();
-
-                Mixture toDeploy = new Mixture(effectsToTransmit);
-
-                high.setMixture(toDeploy);
-            }
-
-            return true;
-        }
-    }
 }
