@@ -1,8 +1,5 @@
 package org.autumn.euphoriant.core.cca.entity;
 
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import org.autumn.euphoriant.api.Mixture;
 import org.autumn.euphoriant.api.SubstanceEffect;
 import org.autumn.euphoriant.core.Euphoriant;
@@ -13,6 +10,9 @@ import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 import org.ladysnake.cca.api.v3.component.tick.CommonTickingComponent;
 
 import java.util.List;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 
 /**
  * @author Chemthunder
@@ -22,7 +22,7 @@ public class HighComponent implements AutoSyncedComponent, CommonTickingComponen
             Euphoriant.id("high"),
             HighComponent.class
     );
-    private final Player player;
+    private final PlayerEntity player;
 
     private @Nullable Mixture mixture;
 
@@ -30,7 +30,7 @@ public class HighComponent implements AutoSyncedComponent, CommonTickingComponen
 
     private static final int BASE_DURATION = 500;
 
-    public HighComponent(Player player) {
+    public HighComponent(PlayerEntity player) {
         this.player = player;
     }
 
@@ -46,13 +46,13 @@ public class HighComponent implements AutoSyncedComponent, CommonTickingComponen
         KEY.sync(player);
     }
 
-    public void readData(ValueInput valueInput) {
+    public void readData(ReadView valueInput) {
         mixture = valueInput.read("Mixture", Mixture.CODEC).orElse(null);
     }
 
-    public void writeData(ValueOutput valueOutput) {
+    public void writeData(WriteView valueOutput) {
         if (mixture != null) {
-            valueOutput.store("Mixture", Mixture.CODEC, mixture);
+            valueOutput.put("Mixture", Mixture.CODEC, mixture);
         }
     }
 

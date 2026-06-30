@@ -1,8 +1,8 @@
 package org.autumn.euphoriant.mixin;
 
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import org.autumn.euphoriant.core.cca.entity.HighComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,12 +12,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * @author Chemthunder
  */
-@Mixin(value = Player.class)
-public abstract class PlayerMixin {
+@Mixin(value = PlayerEntity.class)
+public abstract class PlayerEntityMixin {
 
     @Inject(method = "attack", at = @At(value = "HEAD"))
     private void euphoriant$attack(Entity entity, CallbackInfo ci) {
-        Player self = (Player) (Object) this;
+        PlayerEntity self = (PlayerEntity) (Object) this;
 
         HighComponent component = HighComponent.KEY.get(self);
 
@@ -25,9 +25,9 @@ public abstract class PlayerMixin {
 
             component.getMixture().effects().forEach(substanceEffect -> substanceEffect.onAttack(
                     self,
-                    self.level(),
+                    self.getEntityWorld(),
                     target,
-                    self.getActiveItem()
+                    self.getActiveOrMainHandStack()
             ));
         }
     }

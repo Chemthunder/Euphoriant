@@ -4,7 +4,7 @@ import net.acoyt.acornlib.api.registrants.ParticleTypeRegistrant;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.client.particle.EndRodParticle;
-import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.particle.SimpleParticleType;
 
 import static org.autumn.euphoriant.core.Euphoriant.PROJECT_ID;
 
@@ -19,6 +19,6 @@ public interface ModParticleTypes {
     static void init() {}
 
     static void clientInit() {
-        ParticleFactoryRegistry.getInstance().register(SUBSTANCE_EAT, EndRodParticle.Provider::new);
+        ParticleFactoryRegistry.getInstance().register(SUBSTANCE_EAT, EndRodParticle.Factory::new);
     }
 }

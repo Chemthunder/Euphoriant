@@ -2,9 +2,9 @@ package org.autumn.euphoriant.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Level;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.world.World;
 import org.autumn.euphoriant.core.index.ModParticleTypes;
 import org.autumn.euphoriant.core.item.SubstanceItem;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,13 +20,13 @@ public abstract class LivingEntityMixin {
             method = "spawnItemParticles",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/Level;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V"
+                    target = "Lnet/minecraft/world/World;addParticleClient(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"
             )
     )
-    private void euphoriant$customEatParticle(Level instance, ParticleOptions particleOptions, double d, double e, double f, double g, double h, double i, Operation<Void> original) {
+    private void euphoriant$customEatParticle(World instance, ParticleEffect particleOptions, double d, double e, double f, double g, double h, double i, Operation<Void> original) {
         LivingEntity living = (LivingEntity) (Object)this;
 
-        if (living.getMainHandItem().getItem() instanceof SubstanceItem) {
+        if (living.getMainHandStack().getItem() instanceof SubstanceItem) {
             original.call(
                     instance,
                     ModParticleTypes.SUBSTANCE_EAT,

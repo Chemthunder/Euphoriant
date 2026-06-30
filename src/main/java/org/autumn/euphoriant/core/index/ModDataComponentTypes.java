@@ -1,7 +1,7 @@
 package org.autumn.euphoriant.core.index;
 
 import net.acoyt.acornlib.api.registrants.DataComponentTypeRegistrant;
-import net.minecraft.core.component.DataComponentType;
+import net.minecraft.component.ComponentType;
 import org.autumn.euphoriant.api.Mixture;
 
 import static org.autumn.euphoriant.core.Euphoriant.PROJECT_ID;
@@ -12,7 +12,7 @@ import static org.autumn.euphoriant.core.Euphoriant.PROJECT_ID;
 public interface ModDataComponentTypes {
     DataComponentTypeRegistrant rant = new DataComponentTypeRegistrant(PROJECT_ID);
 
-    DataComponentType<Mixture> MIXTURE = rant.register(
+    ComponentType<Mixture> MIXTURE = rant.register(
             "mixture",
             Mixture.CODEC,
             Mixture.STREAM_CODEC

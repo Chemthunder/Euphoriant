@@ -2,9 +2,9 @@ package org.autumn.euphoriant.datagen.providers;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.client.data.models.BlockModelGenerators;
-import net.minecraft.client.data.models.ItemModelGenerators;
-import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.BlockStateModelGenerator;
+import net.minecraft.client.data.ItemModelGenerator;
+import net.minecraft.client.data.Models;
 import org.autumn.euphoriant.core.index.ModItems;
 
 /**
@@ -15,12 +15,12 @@ public class ModModelProvider extends FabricModelProvider {
         super(output);
     }
 
-    public void generateBlockStateModels(BlockModelGenerators blockModelGenerators) {}
+    public void generateBlockStateModels(BlockStateModelGenerator blockModelGenerators) {}
 
-    public void generateItemModels(ItemModelGenerators itemModelGenerators) {
-        itemModelGenerators.generateFlatItem(
+    public void generateItemModels(ItemModelGenerator itemModelGenerators) {
+        itemModelGenerators.register(
                 ModItems.SUBSTANCE,
-                ModelTemplates.FLAT_ITEM
+                Models.GENERATED
         );
     }
 }

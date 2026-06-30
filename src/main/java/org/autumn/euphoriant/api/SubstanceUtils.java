@@ -1,30 +1,49 @@
 package org.autumn.euphoriant.api;
 
-import net.fabricmc.fabric.impl.client.indigo.renderer.helper.ColorHelper;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.util.ARGB;
-import net.minecraft.util.ColorRGBA;
-import net.minecraft.world.level.ColorResolver;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.util.math.ColorHelper;
+import org.autumn.euphoriant.core.index.ModRegistries;
 
-import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * @author Chemthunder
  */
 public class SubstanceUtils {
-    public static void extractInventorySprite(GuiGraphics context, int mouseX, int mouseY) {
-        Minecraft minecraft = Minecraft.getInstance();
-        Font font = minecraft.font;
+    public static void renderInventory(DrawContext context, int mouseX, int mouseY) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        TextRenderer textRenderer = client.textRenderer;
 
         context.fillGradient(
                 0,
                 0,
-                context.guiWidth(),
-                context.guiHeight(),
+                context.getScaledWindowWidth(),
+                context.getScaledWindowHeight(),
                 0xF0000000,
-                ARGB.colorFromFloat(0, 234, 84, 0.33F)
+                ColorHelper.fromFloats(0, 234, 84, 0.33F)
         );
+    }
+
+    public static Mixture generateRandomMixture() {
+        Random random = new Random();
+        int length = random.nextInt(ModRegistries.SUBSTANCE_EFFECT.size());
+
+        List<SubstanceEffect> effects = new ArrayList<>();
+
+        if (length == 0) {
+            generateRandomMixture();
+        } else {
+            for (SubstanceEffect effect : ModRegistries.SUBSTANCE_EFFECT) {
+                if (random.nextInt(4) < 3) {
+                    effects.add(effect);
+                }
+            }
+        }
+
+        return new Mixture(effects);
     }
 }

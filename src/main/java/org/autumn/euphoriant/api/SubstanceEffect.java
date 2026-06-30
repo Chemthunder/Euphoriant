@@ -3,12 +3,12 @@ package org.autumn.euphoriant.api;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.acoyt.acornlib.api.util.MiscUtils;
-import net.minecraft.resources.Identifier;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
 import org.autumn.euphoriant.core.index.ModRegistries;
 
 public class SubstanceEffect {
@@ -34,7 +34,7 @@ public class SubstanceEffect {
     }
 
     public String getTranslationKey() {
-        Identifier id = ModRegistries.SUBSTANCE_EFFECT.getKey(this);
+        Identifier id = ModRegistries.SUBSTANCE_EFFECT.getId(this);
         return "substance_effect." + id.getNamespace() + "." + id.getPath();
     }
 
@@ -44,21 +44,21 @@ public class SubstanceEffect {
 
 
     /// OVERRIDES
-    public void tick(Player player) {
+    public void tick(PlayerEntity player) {
     }
 
-    public void onAttack(Player player, Level level, LivingEntity target, ItemStack stack) {
+    public void onAttack(PlayerEntity player, World world, LivingEntity target, ItemStack stack) {
     }
 
-    public void onSneak(Player player, Level level) {
+    public void onSneak(PlayerEntity player, World world) {
     }
 
-    public void onDamage(Player player, Level level, DamageSource source) {
+    public void onDamage(PlayerEntity player, World world, DamageSource source) {
     }
 
-    public void onHeal(Player player, Level level) {
+    public void onHeal(PlayerEntity player, World world) {
     }
 
-    public void onDeath(Player player, Level level) {
+    public void onDeath(PlayerEntity player, World world) {
     }
 }
